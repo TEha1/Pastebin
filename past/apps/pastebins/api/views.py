@@ -7,7 +7,6 @@ from rest_framework.exceptions import ParseError
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
 # Models
 from ..models import Pastebin
 # Serializers
@@ -30,6 +29,24 @@ class PublicPastebinListView(ListAPIView):
     permission_classes = (AllowAny,)
     def get_queryset(self):
         return Pastebin.objects.filter(id=self.kwargs['pk']) & Pastebin.objects.filter(privacy=3)
+
+
+class PasteByDate(GenericAPIView):
+    queryset = Pastebin.objects.filter(privacy__in=[2,3])
+    serializer_class = DateSerializerForm
+
+    def post(self, request, *args, **kwargs):
+        serializerform = self.get_serializer(data=request.data)
+        if not serializerform.is_valid():
+            raise ParseError(detail="No valid values")
+        date1 = request.data['date1']
+        pastbains = Pastebin.objects.filter(date=date1) & Pastebin.objects.filter(privacy__in=[2,3])
+        if pastbains.exists():
+            serializer = PublicPastebinSerializer(pastbains, many=True)
+            return Response(serializer.data)
+
+        return Response ({"Error": "This date doesn't match any element"})
+
 #------------------------------------------------------------------------------------------------------------------!!!!!
 
 # For Certain Users
@@ -57,24 +74,6 @@ class CertainPastebinListView(ListAPIView):
     def get_queryset(self):
         return Pastebin.objects.filter(id=self.kwargs['pk']) & Pastebin.objects.filter(privacy__in=[2,3])
 
-
-class PasteByDate(GenericAPIView):
-    queryset = Pastebin.objects.filter(privacy__in=[2,3])
-    serializer_class = DateSerializerForm
-    permissions = (IsAuthenticated,)
-    authentication_classes = (TokenAuthentication,)
-
-    def post(self, request, *args, **kwargs):
-        serializerform = self.get_serializer(data=request.data)
-        if not serializerform.is_valid():
-            raise ParseError(detail="No valid values")
-        date1 = request.data['date1']
-        pastbains = Pastebin.objects.filter(date=date1) & Pastebin.objects.filter(privacy__in=[2,3])
-        if pastbains.exists():
-            serializer = PublicPastebinSerializer(pastbains, many=True)
-            return Response(serializer.data)
-
-        return Response ({"Error": "This date doesn't match any element"})
 #-----------------------------------------------------------------------------------------------------------------------
 
 
