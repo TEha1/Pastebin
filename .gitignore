@@ -2,8 +2,10 @@
 *.pyc
 .idea
 staticfiles
+/__pycache__/
 __pycache__/
 *.pyc
 *.pyo
 past/apps/user/migrations/
 past/apps/pastebins/migrations/
+past/apps/pastebins/api/__pycache__/views.cpython-37.pyc
