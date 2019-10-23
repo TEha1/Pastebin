@@ -1,0 +1,13 @@
+pytz  # https://github.com/stub42/pytz
+whitenoise  # https://github.com/evansd/whitenoise
+Pillow  # https://github.com/python-pillow/Pillow
+# Django
+# ------------------------------------------------------------------------------
+django==2.2  # pyup: < 3.0  # https://www.djangoproject.com/
+
+# Django REST Framework
+djangorestframework  # https://github.com/encode/django-rest-framework
+coreapi  # https://github.com/core-api/python-client
+
+
+django-import-export  # https://github.com/django-import-export/django-import-export/blob/master/docs/installation.rst
