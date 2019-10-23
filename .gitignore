@@ -1,0 +1,9 @@
+
+*.pyc
+.idea
+staticfiles
+__pycache__/
+*.pyc
+*.pyo
+past/apps/user/migrations/
+past/apps/pastebins/migrations/
