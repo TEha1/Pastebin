@@ -7,4 +7,3 @@ __pycache__/
 *.pyo
 past/apps/user/migrations/
 past/apps/pastebins/migrations/
-past/apps/pastebins/api/__pycache__/views.cpython-37.pyc
