@@ -20,6 +20,5 @@ It's a Pastebain Rest-Full API that allows Guest and Registered Users to share t
     
     6) python manage.py runserver
     
-    
-# Then you can access the admin page from here  -> http://127.0.0.1:8000/admin/
-  Note: There's already admin with (username: admin) and (password: admin)
+    Then you can access the admin page from here  -> http://127.0.0.1:8000/admin/
+    Note: There's already admin with (username: admin) and (password: admin)
